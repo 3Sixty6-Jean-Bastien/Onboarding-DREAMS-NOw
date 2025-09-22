@@ -1,14 +1,14 @@
 name = "dreams5-onboarding-agent"
-main = "src/index.ts"
-compatibility_date = "2025-09-19"
+main = "dreams5-onboarding-agent/src/index.ts"
+compatibility_date = "2024-05-01"
 type = "javascript"
 
 [build]
-command = "npm run build"
+command = "npm install --prefix dreams5-onboarding-agent && npm run build --prefix dreams5-onboarding-agent"
 
 # Optional static site (serves files from ./public)
 [site]
-bucket = "./public"
+bucket = "dreams5-onboarding-agent/public"
 
 # Durable Object — per-tenant state machine
 [[durable_objects.bindings]]
@@ -49,4 +49,3 @@ GREENLIGHT_MIN_REQUIRED = "12"
 name = "dreams5-onboarding-agent-dev"
 account_id = "REPLACE_WITH_ACCOUNT_ID"
 route = ""
-
