@@ -1,4 +1,5 @@
 import { VerifyTaskSchema } from '../lib/schemas'
+import { handleVerifyJob } from '../lib/verify'
 
 const impl = {
   async enqueue(request: Request, env: any) {
@@ -9,8 +10,11 @@ const impl = {
     try {
       if (env.VERIFY_QUEUE) {
         await env.VERIFY_QUEUE.send(JSON.stringify(body))
+        return new Response(JSON.stringify({ enqueued: body }), { headers: { 'content-type': 'application/json' } })
       }
-      return new Response(JSON.stringify({ enqueued: body }), { headers: { 'content-type': 'application/json' } })
+
+      await handleVerifyJob(env, body)
+      return new Response(JSON.stringify({ processed: body }), { headers: { 'content-type': 'application/json' } })
     } catch (err: any) {
       return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: { 'content-type': 'application/json' } })
     }

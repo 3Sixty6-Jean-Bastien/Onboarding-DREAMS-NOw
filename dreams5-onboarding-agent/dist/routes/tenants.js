@@ -1,4 +1,4 @@
-export default {
+const impl = {
     async list(request, env) {
         // simple D1 query
         try {
@@ -21,3 +21,10 @@ export default {
         }
     }
 };
+export async function handle(request, env) {
+    if (request.method === 'GET')
+        return impl.list(request, env);
+    if (request.method === 'POST')
+        return impl.create(request, env);
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405, headers: { 'content-type': 'application/json' } });
+}

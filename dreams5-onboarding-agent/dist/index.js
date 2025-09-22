@@ -1,36 +1,42 @@
-import tenants from './routes/tenants';
-import steps from './routes/steps';
-import uploads from './routes/uploads';
-import verify from './routes/verify';
-import greenlight from './routes/greenlight';
-import webhooksStripe from './routes/webhooks_stripe';
-const routes = [
-    { method: 'GET', path: /^\/$/, handler: async () => new Response('Onboarding Agent') },
-    { method: 'GET', path: /^\/api\/tenants$/, handler: tenants.list },
-    { method: 'POST', path: /^\/api\/tenants$/, handler: tenants.create },
-    { method: 'GET', path: /^\/api\/steps$/, handler: steps.list },
-    { method: 'POST', path: /^\/api\/steps\/(.+)$/, handler: steps.update },
-    { method: 'POST', path: /^\/api\/uploads$/, handler: uploads.create },
-    { method: 'POST', path: /^\/api\/verify$/, handler: verify.enqueue },
-    { method: 'POST', path: /^\/api\/greenlight$/, handler: greenlight.check },
-    { method: 'POST', path: /^\/api\/webhooks\/stripe$/, handler: webhooksStripe.handle }
-];
-addEventListener('fetch', (evt) => {
-    const e = evt;
-    const req = e.request;
-    const url = new URL(req.url);
-    for (const r of routes) {
-        if (r.method === req.method && r.path.test(url.pathname)) {
-            try {
-                const res = r.handler(req, globalThis.ENV);
-                e.respondWith(Promise.resolve(res));
-                return;
+import * as tenants from './routes/tenants';
+import * as steps from './routes/steps';
+import * as uploads from './routes/uploads';
+import * as verify from './routes/verify';
+import * as greenlight from './routes/greenlight';
+import * as connect from './routes/connect';
+import * as webhooksStripe from './routes/webhooks_stripe';
+import * as welcome from './routes/welcome';
+import { json as j, notFound } from './lib/responses';
+export default {
+    async fetch(request, env) {
+        const url = new URL(request.url);
+        if (url.pathname === '/' && request.method === 'GET') {
+            if (env.ASSETS) {
+                const res = await env.ASSETS.fetch(request);
+                return new Response(await res.text(), { headers: { 'content-type': 'text/html; charset=utf-8' } });
             }
-            catch (err) {
-                e.respondWith(new Response(JSON.stringify({ error: String(err) }), { status: 500 }));
-                return;
-            }
+            return j({ ok: true, app: env.APP_NAME || 'onboarding' });
         }
+        if (url.pathname.startsWith('/api/tenants'))
+            return tenants.handle(request, env);
+        if (url.pathname.startsWith('/api/steps'))
+            return steps.handle(request, env);
+        if (url.pathname.startsWith('/api/upload'))
+            return uploads.handle(request, env);
+        if (url.pathname.startsWith('/api/verify'))
+            return verify.handle(request, env);
+        if (url.pathname.startsWith('/api/connect'))
+            return connect.handle(request, env);
+        if (url.pathname.startsWith('/api/greenlight'))
+            return greenlight.handle ? greenlight.handle(request, env) : new Response(JSON.stringify({ ok: true }), { headers: { 'content-type': 'application/json' } });
+        if (url.pathname.startsWith('/webhooks/stripe'))
+            return webhooksStripe.handle ? webhooksStripe.handle(request, env) : new Response(JSON.stringify({ ok: true }), { headers: { 'content-type': 'application/json' } });
+        if (url.pathname.startsWith('/api/welcome'))
+            return welcome.handle(request, env);
+        return notFound();
+    },
+    async queue(batch, env) {
+        const { verifyConsumer } = await import('./queues/verify-consumer');
+        await verifyConsumer(batch, env);
     }
-    e.respondWith(new Response('not found', { status: 404 }));
-});
+};

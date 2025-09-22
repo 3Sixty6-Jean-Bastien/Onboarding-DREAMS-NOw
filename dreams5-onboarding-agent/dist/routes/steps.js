@@ -1,7 +1,15 @@
-export default {
+import { UpdateStepSchema } from '../lib/schemas';
+const impl = {
     async list(request, env) {
         try {
-            const res = await env.DB.prepare('SELECT * FROM steps ORDER BY updated_at DESC LIMIT 100').all();
+            const url = new URL(request.url);
+            const tenantId = url.searchParams.get('tenant_id') || url.searchParams.get('tenantId');
+            const sql = tenantId
+                ? 'SELECT * FROM steps WHERE tenant_id = ? ORDER BY updated_at DESC LIMIT 200'
+                : 'SELECT * FROM steps ORDER BY updated_at DESC LIMIT 100';
+            const res = tenantId
+                ? await env.DB.prepare(sql).bind(tenantId).all()
+                : await env.DB.prepare(sql).all();
             return new Response(JSON.stringify({ steps: res.results || [] }), { headers: { 'content-type': 'application/json' } });
         }
         catch (err) {
@@ -12,7 +20,11 @@ export default {
         const url = new URL(request.url);
         const match = url.pathname.match(/\/api\/steps\/(.+)$/);
         const stepKey = match ? match[1] : undefined;
-        const body = await request.json().catch(() => ({}));
+        const raw = await request.json().catch(() => ({}));
+        const parsed = UpdateStepSchema.safeParse(raw);
+        if (!parsed.success)
+            return new Response(JSON.stringify({ error: 'validation', issues: parsed.error.format() }), { status: 422, headers: { 'content-type': 'application/json' } });
+        const body = parsed.data;
         if (!stepKey)
             return new Response(JSON.stringify({ error: 'missing step key' }), { status: 400, headers: { 'content-type': 'application/json' } });
         try {
@@ -25,3 +37,10 @@ export default {
         }
     }
 };
+export async function handle(request, env) {
+    if (request.method === 'GET')
+        return impl.list(request, env);
+    if (request.method === 'POST')
+        return impl.update(request, env);
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405, headers: { 'content-type': 'application/json' } });
+}
