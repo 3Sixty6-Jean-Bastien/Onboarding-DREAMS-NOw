@@ -6,6 +6,10 @@ type = "javascript"
 [build]
 command = "npm run build"
 
+# Optional static site (serves files from ./public)
+[site]
+bucket = "./public"
+
 # Durable Object — per-tenant state machine
 [[durable_objects.bindings]]
 name = "ONBOARD_BRAIN"
@@ -40,7 +44,9 @@ script_name = "dreams5-onboarding-agent"
 [vars]
 APP_NAME = "DREAMS5 Onboarding Agent"
 GREENLIGHT_MIN_REQUIRED = "12"
-SECRET_KEY = "change-me"
 
 [env.dev]
 name = "dreams5-onboarding-agent-dev"
+account_id = "REPLACE_WITH_ACCOUNT_ID"
+route = ""
+

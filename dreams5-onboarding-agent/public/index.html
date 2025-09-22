@@ -1,15 +1,281 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Onboarding Agent</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3Sixty6 Media | Onboarding</title>
+    <meta
+      name="description"
+      content="Your first step in the MODERN™ framework. Grant access, share your brand collateral, and prepare to launch your digital transformation."
+    />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --primary: #8a2be2;
+        --accent: #00bfff;
+        --background: #0a0a0a;
+        --text-light: #e5e7eb;
+        --text-muted: #94a3b8;
+        --card-bg: rgba(20, 20, 20, 0.62);
+        --border-color: rgba(255, 255, 255, 0.08);
+      }
+      body {
+        font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--background);
+        color: var(--text-light);
+        margin: 0;
+      }
+      .glass-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--border-color);
+        border-radius: 18px;
+      }
+      .gradient-text {
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .step-index {
+        box-shadow: 0 15px 35px rgba(0, 191, 255, 0.25);
+      }
+      .btn-primary {
+        background-image: linear-gradient(to right, #8a2be2 0%, #4f46e5 51%, #00bfff 100%);
+        background-size: 200% auto;
+        color: #fff;
+        transition: background-position 0.4s ease, transform 0.2s ease;
+      }
+      .btn-primary:hover {
+        background-position: right center;
+        transform: translateY(-2px);
+      }
+      .input-group label {
+        color: var(--text-light);
+      }
+      .input-group input,
+      .input-group textarea,
+      .input-group select {
+        background: rgba(30, 30, 30, 0.68);
+        border: 1px solid var(--border-color);
+        color: var(--text-light);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      .input-group input:focus,
+      .input-group textarea:focus,
+      .input-group select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.25);
+        outline: none;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
   </head>
-  <body>
-    <main>
-      <h1>Onboarding Agent</h1>
-      <p>Static UI placeholder. Use API routes under `/api`.</p>
+  <body class="antialiased">
+    <main class="py-16 md:py-24">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <header class="text-center mb-14">
+          <p class="uppercase tracking-[0.35em] text-xs md:text-sm text-[var(--text-muted)] mb-4">
+            Day 0 · Access & Alignment
+          </p>
+          <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+            Welcome to Your <span class="gradient-text">MODERN™</span> Transformation
+          </h1>
+          <p class="text-lg md:text-xl text-[var(--text-muted)] max-w-2xl mx-auto leading-relaxed">
+            This is the first step in our streamlined 5-day build. Follow the prompts below to grant secured access, share your creative DNA, and point us toward the CRM that powers your customer journey.
+          </p>
+        </header>
+
+        <section class="space-y-12">
+          <div class="glass-card p-6 md:p-10">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="step-index w-14 h-14 md:w-16 md:h-16 bg-[var(--accent)] text-white font-black rounded-full flex items-center justify-center text-2xl">
+                  1
+                </div>
+                <div>
+                  <h2 class="text-2xl md:text-3xl font-bold">Grant Project Access</h2>
+                  <p class="text-[var(--text-muted)] text-sm md:text-base">
+                    Securely connect the platforms we need to analyze, launch, and optimize.
+                  </p>
+                </div>
+              </div>
+              <p class="text-[var(--text-muted)] text-sm md:text-base md:max-w-sm">
+                We use temporary, auditable access and immediately revoke credentials once the build is live.
+              </p>
+            </div>
+
+            <div class="grid gap-4 md:grid-cols-2">
+              <a href="#" class="btn-primary inline-flex items-center justify-between px-6 py-4 rounded-2xl font-semibold text-base">
+                <span>Connect Google Analytics</span>
+                <span class="material-symbols-outlined text-xl hidden md:inline-block">open_in_new</span>
+              </a>
+              <a href="#" class="btn-primary inline-flex items-center justify-between px-6 py-4 rounded-2xl font-semibold text-base">
+                <span>Connect Search Console</span>
+                <span class="material-symbols-outlined text-xl hidden md:inline-block">open_in_new</span>
+              </a>
+              <div class="glass-card border border-[var(--border-color)] p-6 md:col-span-2">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div>
+                    <h3 class="text-lg md:text-xl font-semibold">Choose Your CRM</h3>
+                    <p class="text-[var(--text-muted)] text-sm md:text-base">
+                      Select the CRM you operate on. We integrate with your choice—HubSpot, Salesforce, GoHighLevel, or any other platform that keeps your pipeline flowing.
+                    </p>
+                  </div>
+                  <label class="input-group w-full md:w-72 text-sm font-medium">
+                    <span class="block mb-2">Preferred CRM Platform</span>
+                    <select name="crm" class="w-full px-4 py-3 rounded-xl">
+                      <option value="">Select your CRM</option>
+                      <option value="hubspot">HubSpot</option>
+                      <option value="salesforce">Salesforce</option>
+                      <option value="gohighlevel">GoHighLevel</option>
+                      <option value="zoho">Zoho</option>
+                      <option value="other">Other (we'll confirm access details)</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="mt-4 text-[var(--text-muted)] text-sm">
+                  Need something custom? Drop the invite email during submission and we will send the exact permissions request.
+                </div>
+              </div>
+              <a href="#" class="btn-primary inline-flex items-center justify-between px-6 py-4 rounded-2xl font-semibold text-base">
+                <span>Connect Domain Provider</span>
+                <span class="material-symbols-outlined text-xl hidden md:inline-block">open_in_new</span>
+              </a>
+              <a href="#" class="btn-primary inline-flex items-center justify-between px-6 py-4 rounded-2xl font-semibold text-base">
+                <span>Share Ad Platforms</span>
+                <span class="material-symbols-outlined text-xl hidden md:inline-block">open_in_new</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="glass-card p-6 md:p-10">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="step-index w-14 h-14 md:w-16 md:h-16 bg-[var(--primary)] text-white font-black rounded-full flex items-center justify-center text-2xl">
+                2
+              </div>
+              <div>
+                <h2 class="text-2xl md:text-3xl font-bold">Upload Your Collateral</h2>
+                <p class="text-[var(--text-muted)] text-sm md:text-base">
+                  Your brand assets and content give us the context to move fast without sacrificing fidelity.
+                </p>
+              </div>
+            </div>
+
+            <form id="onboarding-form" class="space-y-5">
+              <div class="grid md:grid-cols-2 gap-5">
+                <div class="input-group">
+                  <label for="companyName" class="block font-semibold mb-2">Company Name *</label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    name="companyName"
+                    class="w-full px-4 py-3 rounded-xl"
+                    placeholder="Your Company Name"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <label for="website" class="block font-semibold mb-2">Primary Website URL</label>
+                  <input
+                    type="url"
+                    id="website"
+                    name="website"
+                    class="w-full px-4 py-3 rounded-xl"
+                    placeholder="https://yourdomain.com"
+                  />
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-5">
+                <div class="input-group">
+                  <label for="logo" class="block font-semibold mb-2">Upload Your Logo (.PNG, .SVG)</label>
+                  <input type="file" id="logo" name="logo" accept=".png,.svg" class="w-full px-4 py-3 rounded-xl" />
+                </div>
+                <div class="input-group">
+                  <label for="brandBook" class="block font-semibold mb-2">Brand Guidelines / Deck</label>
+                  <input
+                    type="file"
+                    id="brandBook"
+                    name="brandBook"
+                    accept=".pdf,.ppt,.pptx"
+                    class="w-full px-4 py-3 rounded-xl"
+                  />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="images" class="block font-semibold mb-2">Upload Images (Brand, Team, Product)</label>
+                <input type="file" id="images" name="images" accept="image/*" multiple class="w-full px-4 py-3 rounded-xl" />
+              </div>
+
+              <div class="input-group">
+                <label for="brandVoice" class="block font-semibold mb-2">Describe Your Brand Voice & Mission</label>
+                <textarea
+                  id="brandVoice"
+                  name="brandVoice"
+                  rows="4"
+                  class="w-full px-4 py-3 rounded-xl"
+                  placeholder="Tell us about your tone, origin story, and what success looks like..."
+                ></textarea>
+              </div>
+
+              <div class="input-group">
+                <label for="launchNotes" class="block font-semibold mb-2">Launch Day Notes</label>
+                <textarea
+                  id="launchNotes"
+                  name="launchNotes"
+                  rows="4"
+                  class="w-full px-4 py-3 rounded-xl"
+                  placeholder="Anything we should know about timelines, approvals, or team members."
+                ></textarea>
+              </div>
+            </form>
+          </div>
+
+          <div class="glass-card p-6 md:p-10">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="step-index w-14 h-14 md:w-16 md:h-16 bg-white/10 text-white font-black rounded-full flex items-center justify-center text-2xl">
+                3
+              </div>
+              <div>
+                <h2 class="text-2xl md:text-3xl font-bold">Confirm & Launch</h2>
+                <p class="text-[var(--text-muted)] text-sm md:text-base">
+                  Final checkpoints before we engage the Onboard Brain and schedule your Day 1 call.
+                </p>
+              </div>
+            </div>
+            <ul class="grid gap-3 text-[var(--text-muted)] text-sm md:text-base">
+              <li class="flex items-start gap-2"><span class="mt-0.5 text-[var(--accent)]">•</span>Double-check CRM selection or add a note if you use multiple platforms.</li>
+              <li class="flex items-start gap-2"><span class="mt-0.5 text-[var(--accent)]">•</span>Verify access invitations are sent from your admin email or include our team as a delegated user.</li>
+              <li class="flex items-start gap-2"><span class="mt-0.5 text-[var(--accent)]">•</span>Upload any compliance disclosures, partner badges, or testimonials you want showcased.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="mt-12 text-center">
+          <a href="#" id="submit-button" class="btn-primary inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full font-bold text-lg tracking-wide">
+            Submit Onboarding Packet
+            <span class="material-symbols-outlined text-2xl">north_east</span>
+          </a>
+          <p class="mt-4 text-[var(--text-muted)] text-sm md:text-base max-w-xl mx-auto">
+            We review submissions within one business day. Your project manager will confirm access, line up the 5-day sprint, and deliver your official Day 1 kickoff agenda.
+          </p>
+        </section>
+      </div>
     </main>
   </body>
 </html>
