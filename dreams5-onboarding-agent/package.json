@@ -1,0 +1,24 @@
+{
+  "name": "dreams5-onboarding-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "wrangler": "^3.0.0",
+    "@cloudflare/workers-types": "^4.2025.0",
+    "miniflare": "^3.9.0"
+  },
+  "dependencies": {
+    "itty-router": "^2.6.0",
+    "zod": "^3.22.2"
+  }
+}

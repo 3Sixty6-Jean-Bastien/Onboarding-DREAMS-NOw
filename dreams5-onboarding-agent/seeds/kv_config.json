@@ -1,0 +1,11 @@
+{
+  "copy": {
+    "welcome": "Welcome to the onboarding flow!",
+    "complete": "You're all set."
+  },
+  "steps": [
+    { "key": "setup-domain", "title": "Set up your domain" },
+    { "key": "connect-ga4", "title": "Connect Google Analytics 4" }
+  ],
+  "featureFlags": { "stripe": true }
+}

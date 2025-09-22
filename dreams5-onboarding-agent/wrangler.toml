@@ -1,0 +1,46 @@
+name = "dreams5-onboarding-agent"
+main = "src/index.ts"
+compatibility_date = "2025-09-19"
+type = "javascript"
+
+[build]
+command = "npm run build"
+
+# Durable Object — per-tenant state machine
+[[durable_objects.bindings]]
+name = "ONBOARD_BRAIN"
+class_name = "OnboardBrain"
+
+# D1 (relational source of truth)
+[[d1_databases]]
+binding = "DB"
+database_name = "dreams5_db"
+database_id = "REPLACE_WITH_DB_ID"
+
+# KV — config, copy, flags
+[[kv_namespaces]]
+binding = "KV_CONFIG"
+id = "REPLACE_WITH_KV_ID"
+
+# R2 — uploaded assets (logos, brand kits, CSVs)
+[[r2_buckets]]
+binding = "R2_ASSETS"
+bucket_name = "dreams5-assets"
+
+# Queues — verification jobs
+[[queues.producers]]
+queue = "verify-tasks"
+
+[[queues.consumers]]
+queue = "verify-tasks"
+max_batch_size = 50
+max_batch_timeout = 30
+script_name = "dreams5-onboarding-agent"
+
+[vars]
+APP_NAME = "DREAMS5 Onboarding Agent"
+GREENLIGHT_MIN_REQUIRED = "12"
+SECRET_KEY = "change-me"
+
+[env.dev]
+name = "dreams5-onboarding-agent-dev"
