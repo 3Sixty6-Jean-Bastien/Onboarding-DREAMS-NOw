@@ -10,13 +10,7 @@ import { json as j, notFound } from './lib/responses';
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
-        if (url.pathname === '/' && request.method === 'GET') {
-            if (env.ASSETS) {
-                const res = await env.ASSETS.fetch(request);
-                return new Response(await res.text(), { headers: { 'content-type': 'text/html; charset=utf-8' } });
-            }
-            return j({ ok: true, app: env.APP_NAME || 'onboarding' });
-        }
+        // API routes
         if (url.pathname.startsWith('/api/tenants'))
             return tenants.handle(request, env);
         if (url.pathname.startsWith('/api/steps'))
@@ -33,6 +27,14 @@ export default {
             return webhooksStripe.handle ? webhooksStripe.handle(request, env) : new Response(JSON.stringify({ ok: true }), { headers: { 'content-type': 'application/json' } });
         if (url.pathname.startsWith('/api/welcome'))
             return welcome.handle(request, env);
+        // Static assets (index.html, styles.css, etc.)
+        if (env.ASSETS) {
+            return env.ASSETS.fetch(request);
+        }
+        // Minimal JSON welcome if assets not configured
+        if (url.pathname === '/' && request.method === 'GET') {
+            return j({ ok: true, app: env.APP_NAME || 'onboarding' });
+        }
         return notFound();
     },
     async queue(batch, env) {

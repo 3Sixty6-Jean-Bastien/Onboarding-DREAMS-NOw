@@ -1,21 +1,14 @@
 name = "dreams5-onboarding-agent"
+main = "dreams5-onboarding-agent/dist/index.js"
 compatibility_date = "2024-05-01"
-type = "javascript"
 
 [build]
 command = "npm install --prefix dreams5-onboarding-agent && npm run build --prefix dreams5-onboarding-agent"
 
-[build.upload]
-main = "dreams5-onboarding-agent/dist/index.js"
-format = "modules"
-
-[[rules]]
-globs = ["dreams5-onboarding-agent/dist/**/*.js"]
-type = "ESModule"
-
-# Optional static site (serves files from ./public)
-[site]
-bucket = "dreams5-onboarding-agent/public"
+# Static assets served by Worker (free plan)
+[assets]
+directory = "dreams5-onboarding-agent/public"
+binding = "ASSETS"
 
 # Durable Object — per-tenant state machine
 [[durable_objects.bindings]]
@@ -36,6 +29,10 @@ id = "REPLACE_WITH_KV_ID"
 [vars]
 APP_NAME = "DREAMS5 Onboarding Agent"
 GREENLIGHT_MIN_REQUIRED = "12"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["OnboardBrain"]
 
 [env.dev]
 name = "dreams5-onboarding-agent-dev"
