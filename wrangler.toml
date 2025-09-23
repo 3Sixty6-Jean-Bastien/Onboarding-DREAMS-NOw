@@ -1,10 +1,17 @@
 name = "dreams5-onboarding-agent"
-main = "dreams5-onboarding-agent/src/index.ts"
 compatibility_date = "2024-05-01"
 type = "javascript"
 
 [build]
 command = "npm install --prefix dreams5-onboarding-agent && npm run build --prefix dreams5-onboarding-agent"
+
+[build.upload]
+main = "dreams5-onboarding-agent/dist/index.js"
+format = "modules"
+
+[[rules]]
+globs = ["dreams5-onboarding-agent/dist/**/*.js"]
+type = "ESModule"
 
 # Optional static site (serves files from ./public)
 [site]
